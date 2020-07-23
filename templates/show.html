@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for stu in data %}
+{{stu.username}}<br>
+{{stu.email}}<br>
+{{stu.password}}
+<br>
+{% endfor %}
+{% endblock %}
