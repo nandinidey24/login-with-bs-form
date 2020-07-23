@@ -50,8 +50,8 @@ def data(request):
         )
         test.set_password(request.POST.get('password'))
         test.save()
-        yr = request.POST.get('year')
-        clg = request.POST.get('college')
+        yr = request.POST.get('yr')
+        clg = request.POST.get('clg')
         pw = request.POST.get('password')
         obj1 = Student.objects.create(
             username = email,
