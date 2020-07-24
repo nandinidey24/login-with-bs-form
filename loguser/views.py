@@ -47,7 +47,7 @@ def loguser(request):
         login(request, user)
         print('User verified')
         print(request.user.username)
-        redirect('/show/')
+        return redirect("show")
     else:
         print('No such user')
     template_name = 'login.html'
@@ -87,5 +87,5 @@ def data(request):
 
 @login_required
 def display(request):
-    data = Student.objects.filter(username='abc@gmail.com')
+    data = Student.objects.filter(username=request.user.username)
     return render(request, 'show.html', {'data': data})
