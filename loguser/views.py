@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .forms import LoginForm
 from .models import Student
@@ -36,6 +39,21 @@ def action(request):
     context = {'form' : form}
     return render(request, template_name, context)
 
+def loguser(request):
+    username = request.POST.get('username')
+    password = request.POST.get('password')
+    user = authenticate(request, username = username, password = password)
+    if user is not None:
+        login(request, user)
+        print('User verified')
+        print(request.user.username)
+        redirect('/show/')
+    else:
+        print('No such user')
+    template_name = 'login.html'
+    context = {'data' : 'meeting'}
+    return render(request, template_name, context)
+
 def data(request):
     if request.method == 'POST':
         uname = request.POST.get('uname')
@@ -63,10 +81,11 @@ def data(request):
             password = pw
         )
         obj1.save()
-    template_name = 'first.html'
+    template_name = 'signup.html'
     context = {'data' : 'meeting'}
     return render(request, template_name, context)
 
+@login_required
 def display(request):
-    data = Student.objects.filter(username='nsd')
+    data = Student.objects.filter(username='abc@gmail.com')
     return render(request, 'show.html', {'data': data})
