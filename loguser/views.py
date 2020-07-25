@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -53,6 +53,10 @@ def loguser(request):
     template_name = 'login.html'
     context = {'data' : 'meeting'}
     return render(request, template_name, context)
+
+def log_out(request):
+    logout(request)
+    return redirect("")
 
 def data(request):
     if request.method == 'POST':

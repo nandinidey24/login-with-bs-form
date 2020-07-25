@@ -3,10 +3,14 @@
 {% block content %}
 {% for stu in data %}
 {{stu.username}}<br>
-{{stu.email}}<br>
-{{stu.password}}
+{{stu.firstname}}<br>
+{{stu.lastname}}<br>
+{{stu.year}}<br>
+{{stu.college}}
 <br>
-
+<form action="" method="POST">{% csrf_token %}
+    <button type="submit" class="btn btn-primary"><a href="logout">Logout</a></button>
+</form>
 {% endfor %}
 {{user}}
 {% endblock %}
